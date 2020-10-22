@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/dynamic-web-midterm/static/css/main.93290011.chunk.css",
+    "main.css": "/dynamic-web-midterm/static/css/main.96811609.chunk.css",
     "main.js": "/dynamic-web-midterm/static/js/main.16df75af.chunk.js",
     "main.js.map": "/dynamic-web-midterm/static/js/main.16df75af.chunk.js.map",
     "runtime-main.js": "/dynamic-web-midterm/static/js/runtime-main.0790086b.js",
@@ -8,15 +8,15 @@
     "static/js/2.5f41f012.chunk.js": "/dynamic-web-midterm/static/js/2.5f41f012.chunk.js",
     "static/js/2.5f41f012.chunk.js.map": "/dynamic-web-midterm/static/js/2.5f41f012.chunk.js.map",
     "index.html": "/dynamic-web-midterm/index.html",
-    "precache-manifest.c7115a140ac1943a533350e12e03bba8.js": "/dynamic-web-midterm/precache-manifest.c7115a140ac1943a533350e12e03bba8.js",
+    "precache-manifest.0a7adf44115798fa6f35bebe632933bf.js": "/dynamic-web-midterm/precache-manifest.0a7adf44115798fa6f35bebe632933bf.js",
     "service-worker.js": "/dynamic-web-midterm/service-worker.js",
-    "static/css/main.93290011.chunk.css.map": "/dynamic-web-midterm/static/css/main.93290011.chunk.css.map",
+    "static/css/main.96811609.chunk.css.map": "/dynamic-web-midterm/static/css/main.96811609.chunk.css.map",
     "static/js/2.5f41f012.chunk.js.LICENSE.txt": "/dynamic-web-midterm/static/js/2.5f41f012.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.0790086b.js",
     "static/js/2.5f41f012.chunk.js",
-    "static/css/main.93290011.chunk.css",
+    "static/css/main.96811609.chunk.css",
     "static/js/main.16df75af.chunk.js"
   ]
 }
