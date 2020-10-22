@@ -15,19 +15,25 @@ function Stats({ data, locale }) {
         <div className="NumberRow">
           <div>
             <h4>Cases</h4>
-            <p>
+            <p className="Total">
               {data["latest_data"]["confirmed"].toLocaleString(locale)} Total
             </p>
             {data["today"]["confirmed"] || data["today"]["deaths"] ? (
-              <p>+{data["today"]["confirmed"].toLocaleString(locale)} Today</p>
+              <p className="Today">
+                +{data["today"]["confirmed"].toLocaleString(locale)} Today
+              </p>
             ) : null}
           </div>
 
           <div>
             <h4>Deaths</h4>
-            <p>{data["latest_data"]["deaths"].toLocaleString(locale)} Total</p>
+            <p className="Total">
+              {data["latest_data"]["deaths"].toLocaleString(locale)} Total
+            </p>
             {data["today"]["confirmed"] || data["today"]["deaths"] ? (
-              <p>+{data["today"]["deaths"].toLocaleString(locale)} Today</p>
+              <p className="Today">
+                +{data["today"]["deaths"].toLocaleString(locale)} Today
+              </p>
             ) : null}
           </div>
         </div>
@@ -44,7 +50,7 @@ function Stats({ data, locale }) {
           </div>
 
           <div>
-            <h4>Death</h4>
+            <h4>Fatality</h4>
             <p>
               {fatalityRate.toLocaleString(locale, {
                 style: "percent",
@@ -66,14 +72,16 @@ function Stats({ data, locale }) {
 
         <p className="UpdatedAt">
           Updated at{" "}
-          {new Date(data["updated_at"]).toLocaleString(locale, {
-            year: "numeric",
-            month: "numeric",
-            day: "numeric",
-            hour: "numeric",
-            minute: "numeric",
-            timeZoneName: "short",
-          })}
+          <span>
+            {new Date(data["updated_at"]).toLocaleString(locale, {
+              year: "numeric",
+              month: "numeric",
+              day: "numeric",
+              hour: "numeric",
+              minute: "numeric",
+              timeZoneName: "short",
+            })}
+          </span>
         </p>
       </section>
     );
