@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/dynamic-web-midterm/static/css/main.52f2ef69.chunk.css",
-    "main.js": "/dynamic-web-midterm/static/js/main.c616d353.chunk.js",
-    "main.js.map": "/dynamic-web-midterm/static/js/main.c616d353.chunk.js.map",
+    "main.css": "/dynamic-web-midterm/static/css/main.03fa878a.chunk.css",
+    "main.js": "/dynamic-web-midterm/static/js/main.6032d00e.chunk.js",
+    "main.js.map": "/dynamic-web-midterm/static/js/main.6032d00e.chunk.js.map",
     "runtime-main.js": "/dynamic-web-midterm/static/js/runtime-main.0790086b.js",
     "runtime-main.js.map": "/dynamic-web-midterm/static/js/runtime-main.0790086b.js.map",
     "static/js/2.46a2473d.chunk.js": "/dynamic-web-midterm/static/js/2.46a2473d.chunk.js",
     "static/js/2.46a2473d.chunk.js.map": "/dynamic-web-midterm/static/js/2.46a2473d.chunk.js.map",
     "index.html": "/dynamic-web-midterm/index.html",
-    "precache-manifest.90a988a5ccf84424f0ae3b2b8b918ca9.js": "/dynamic-web-midterm/precache-manifest.90a988a5ccf84424f0ae3b2b8b918ca9.js",
+    "precache-manifest.0e8ebd9c09f18d1755b1aba3a60bd17c.js": "/dynamic-web-midterm/precache-manifest.0e8ebd9c09f18d1755b1aba3a60bd17c.js",
     "service-worker.js": "/dynamic-web-midterm/service-worker.js",
-    "static/css/main.52f2ef69.chunk.css.map": "/dynamic-web-midterm/static/css/main.52f2ef69.chunk.css.map",
+    "static/css/main.03fa878a.chunk.css.map": "/dynamic-web-midterm/static/css/main.03fa878a.chunk.css.map",
     "static/js/2.46a2473d.chunk.js.LICENSE.txt": "/dynamic-web-midterm/static/js/2.46a2473d.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.0790086b.js",
     "static/js/2.46a2473d.chunk.js",
-    "static/css/main.52f2ef69.chunk.css",
-    "static/js/main.c616d353.chunk.js"
+    "static/css/main.03fa878a.chunk.css",
+    "static/js/main.6032d00e.chunk.js"
   ]
 }
