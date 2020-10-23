@@ -21,7 +21,7 @@ p {
 }
 
 body {
-  background-color: #eee;
+  background-color: #ececec;
   transition: background 0.5s;
 }
 
@@ -44,7 +44,7 @@ nav {
 
 nav > a {
   margin: 3px 2px 3px 12px;
-  transition: text-shadow 0.5s;
+  transition: text-shadow 0.5s, color 0.5s !important;
 }
 
 .Title h1 {
@@ -55,6 +55,7 @@ div.Title {
   align-items: baseline;
   background-color: #fff8;
   backdrop-filter: blur(20px);
+  border-bottom: solid 1px #aaa;
   flex-wrap: wrap-reverse;
   display: flex;
   padding: calc(0px + var(--inset-top))
@@ -62,7 +63,7 @@ div.Title {
     max(calc(20px + var(--inset-side)), calc(50vw - 480px));
   position: sticky;
   top: 0;
-  transition: background 0.5s;
+  transition: background 0.5s, border 0.5s;
   z-index: 10;
 }
 
@@ -207,7 +208,7 @@ body.Loaded .Loading * {
 }
 
 body.Loaded .Loading h3 {
-  transition: background 0.5s, opacity 0.5s, visibility 0.5s;
+  transition: opacity 0.5s, visibility 0.5s;
 }
 
 body.Loaded .LoadingRing {
@@ -221,7 +222,7 @@ body.Loaded .LoadingMask {
 .Loading {
   align-content: center;
   align-items: center;
-  background-color: #eee;
+  background-color: #f3f3f3;
   flex-direction: column;
   display: flex;
   justify-content: center;
@@ -273,7 +274,7 @@ body.Loaded .LoadingMask {
 }
 
 .LoadingMask {
-  background: #eee;
+  background: #f3f3f3;
   transition: background 0.5s, opacity 0.5s, visibility 0.5s;
 }
 
@@ -425,6 +426,7 @@ body.Loaded .LoadingMask {
 
   div.Title {
     background-color: #0009;
+    border-bottom: solid 1px #555;
   }
 
   nav > a:hover {

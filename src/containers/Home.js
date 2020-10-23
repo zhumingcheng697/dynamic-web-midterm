@@ -38,8 +38,38 @@ function Home() {
     return (result && result.languages && result.languages[0]) || undefined;
   }
 
+  function changeCountry(countryCode = "") {
+    document.body.classList.remove("Loaded");
+    setTimeout(() => {
+      history.push(countryCode ? `./?country=${countryCode}` : "./");
+      setCountry("");
+    }, 1000);
+  }
+
   function getLocation() {
+    setStats(null);
+    setStatsLoaded(false);
+    setLastLoadedDate(null);
+    setLoadNewStatsTimeout(null);
+    setArticles([]);
+    setArticlesLoaded(false);
+    setShouldLoadMoreArticles(false);
+    setLoadingMoreArticles(false);
+    setAllArticlesLoaded(false);
+    setShouldRedirect(false);
+    setRedirectTimer(null);
+    setAllLoaded(false);
+
     if (!country) {
+      let countryCode = new URLSearchParams(history.location.search).get(
+        "country"
+      );
+
+      if (countryCode) {
+        setCountry(countryCode);
+        return;
+      }
+
       axios
         .get(`https://ipapi.co/json`)
         .then((res) => {
@@ -54,7 +84,7 @@ function Home() {
   }
 
   function loadStats() {
-    if (country && (!lastLoadedDate || !stats)) {
+    if (country && !lastLoadedDate) {
       clearTimeout(loadNewStatsTimeout);
 
       axios
@@ -64,14 +94,6 @@ function Home() {
           console.log(data);
           delete data.timeline;
           setStats(data);
-          setLastLoadedDate(new Date());
-
-          setLoadNewStatsTimeout(
-            setTimeout(() => {
-              console.log("auto-refresh");
-              setLastLoadedDate(null);
-            }, loadNewStatsInterval)
-          );
 
           const logVal = Math.log2(
             (data["latest_data"]["deaths"] / data["population"]) * 1000000 + 1
@@ -91,9 +113,28 @@ function Home() {
         })
         .catch((err) => {
           console.warn(err);
+
+          if (!stats) {
+            document.documentElement.style.setProperty(
+              "--light-accent-color",
+              "#eee"
+            );
+
+            document.documentElement.style.setProperty(
+              "--dark-accent-color",
+              "black"
+            );
+          }
         })
         .finally(() => {
           setStatsLoaded(true);
+          setLastLoadedDate(new Date());
+          setLoadNewStatsTimeout(
+            setTimeout(() => {
+              console.log("auto-refresh");
+              setLastLoadedDate(null);
+            }, loadNewStatsInterval)
+          );
         });
     }
   }
@@ -144,25 +185,42 @@ function Home() {
   }
 
   useEffect(() => {
+    function checkRefresh() {
+      setLastLoadedDate((lastLoadedDate) =>
+        lastLoadedDate && new Date() - lastLoadedDate >= loadNewStatsInterval
+          ? null
+          : lastLoadedDate
+      );
+    }
+
     document.addEventListener("scroll", () => {
       const scrollBottom =
         document.documentElement.scrollHeight -
         document.documentElement.clientHeight -
         document.documentElement.scrollTop;
 
-      if (isFinite(scrollBottom) && scrollBottom < 5) {
+      if (scrollBottom < 5) {
         console.log("load!");
         setShouldLoadMoreArticles(true);
+      }
+
+      checkRefresh();
+    });
+
+    document.addEventListener("mousemove", () => {
+      checkRefresh();
+    });
+
+    document.addEventListener("visibilitychange", () => {
+      if (!document.hidden) {
+        console.log("visibility not hidden!");
+        checkRefresh();
       }
     });
 
     window.addEventListener("focus", () => {
-      console.log("focus!");
-      setLastLoadedDate((lastLoadedDate) =>
-        lastLoadedDate && new Date() - lastLoadedDate >= loadNewStatsInterval
-          ? null
-          : lastLoadedDate
-      );
+      console.log("window focus!");
+      checkRefresh();
     });
   }, []);
 
@@ -211,18 +269,6 @@ function Home() {
           setTimeout(() => {
             history.push("./");
             setCountry("");
-            setStats(null);
-            setStatsLoaded(false);
-            setLastLoadedDate(null);
-            setLoadNewStatsTimeout(null);
-            setArticles([]);
-            setArticlesLoaded(false);
-            setShouldLoadMoreArticles(false);
-            setLoadingMoreArticles(false);
-            setAllArticlesLoaded(false);
-            setShouldRedirect(false);
-            setRedirectTimer(null);
-            setAllLoaded(false);
           }, 1000);
         }, 5000);
       }
@@ -244,6 +290,7 @@ function Home() {
                   stats.name
                 : ""
             }
+            changeCountry={changeCountry}
           />
           <main>
             {stats ? (
