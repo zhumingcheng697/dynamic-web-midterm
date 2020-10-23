@@ -71,7 +71,7 @@ function Stats({ data, locale }) {
         </div>
 
         <p className="UpdatedAt">
-          Updated at{" "}
+          Last updated at{" "}
           <span>
             {new Date(data["updated_at"]).toLocaleString(locale, {
               year: "numeric",

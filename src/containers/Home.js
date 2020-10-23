@@ -11,6 +11,7 @@ import Article from "../components/Article";
 function Home() {
   const pageSize = 20;
   const loadingDelay = 0;
+  const loadNewStatsInterval = 1800000; // 30 min
 
   const history = useHistory();
   const [country, setCountry] = useState(
@@ -18,6 +19,8 @@ function Home() {
   );
   const [stats, setStats] = useState(null);
   const [statsLoaded, setStatsLoaded] = useState(false);
+  const [lastLoadedDate, setLastLoadedDate] = useState(null);
+  const [loadNewStatsTimeout, setLoadNewStatsTimeout] = useState(null);
 
   const [articles, setArticles] = useState([]);
   const [articlesLoaded, setArticlesLoaded] = useState(false);
@@ -51,7 +54,9 @@ function Home() {
   }
 
   function loadStats() {
-    if (country) {
+    if (country && (!lastLoadedDate || !stats)) {
+      clearTimeout(loadNewStatsTimeout);
+
       axios
         .get(`https://corona-api.com/countries/${country}`)
         .then((res) => {
@@ -59,6 +64,14 @@ function Home() {
           console.log(data);
           delete data.timeline;
           setStats(data);
+          setLastLoadedDate(new Date());
+
+          setLoadNewStatsTimeout(
+            setTimeout(() => {
+              console.log("auto-refresh");
+              setLastLoadedDate(null);
+            }, loadNewStatsInterval)
+          );
 
           const logVal = Math.log2(
             (data["latest_data"]["deaths"] / data["population"]) * 1000000 + 1
@@ -137,16 +150,24 @@ function Home() {
         document.documentElement.clientHeight -
         document.documentElement.scrollTop;
 
-      if (isFinite(scrollBottom) && scrollBottom < 1) {
+      if (isFinite(scrollBottom) && scrollBottom < 5) {
+        console.log("load!");
         setShouldLoadMoreArticles(true);
       }
     });
 
-    console.log("scroll listner added");
+    window.addEventListener("focus", () => {
+      console.log("focus!");
+      setLastLoadedDate((lastLoadedDate) =>
+        lastLoadedDate && new Date() - lastLoadedDate >= loadNewStatsInterval
+          ? null
+          : lastLoadedDate
+      );
+    });
   }, []);
 
   useEffect(getLocation, [country, history]);
-  useEffect(loadStats, [country, history]);
+  useEffect(loadStats, [country, history, lastLoadedDate]);
   useEffect(loadArticles, [country, history, shouldLoadMoreArticles]);
 
   useEffect(() => {
@@ -176,12 +197,6 @@ function Home() {
 
   useEffect(() => {
     if (shouldRedirect) {
-      // if (redirectTimer > 1 && redirectTimer !== 5) {
-      //   setTimeout(() => {
-      //     setRedirectTimer(redirectTimer - 1);
-      //   }, 1000);
-      // }
-
       if (redirectTimer === 5) {
         setTimeout(() => {
           setInterval(() => {
@@ -198,6 +213,8 @@ function Home() {
             setCountry("");
             setStats(null);
             setStatsLoaded(false);
+            setLastLoadedDate(null);
+            setLoadNewStatsTimeout(null);
             setArticles([]);
             setArticlesLoaded(false);
             setShouldLoadMoreArticles(false);
@@ -243,6 +260,10 @@ function Home() {
                   {articles.length > 0 && allArticlesLoaded ? (
                     <h3 className="centered AllLoaded">
                       All Top Headlines Loaded
+                    </h3>
+                  ) : articles.length > 0 && loadingMoreArticles ? (
+                    <h3 className="centered AllLoaded">
+                      Loading More Headlines…
                     </h3>
                   ) : null}
                 </section>

@@ -26,8 +26,9 @@ body {
 }
 
 main {
-  padding: 0 max(20px + var(--inset-side), 50vw - 480px)
-    calc(20px + var(--inset-bottom)) max(20px + var(--inset-side), 50vw - 480px);
+  padding: 0 max(calc(20px + var(--inset-side)), calc(50vw - 480px))
+    calc(20px + var(--inset-bottom))
+    max(calc(20px + var(--inset-side)), calc(50vw - 480px));
 }
 
 .centered {
@@ -57,8 +58,8 @@ div.Title {
   flex-wrap: wrap-reverse;
   display: flex;
   padding: calc(0px + var(--inset-top))
-    max(20px + var(--inset-side), 50vw - 480px) 0
-    max(20px + var(--inset-side), 50vw - 480px);
+    max(calc(20px + var(--inset-side)), calc(50vw - 480px)) 0
+    max(calc(20px + var(--inset-side)), calc(50vw - 480px));
   position: sticky;
   top: 0;
   transition: background 0.5s;
@@ -66,7 +67,7 @@ div.Title {
 }
 
 h2.Subtitle {
-  padding: 0 max(20px + var(--inset-side), 50vw - 480px);
+  padding: 0 max(calc(20px + var(--inset-side)), calc(50vw - 480px));
   text-align: center;
 }
 
@@ -303,7 +304,7 @@ body.Loaded .LoadingMask {
   }
 
   .NumberRow > div {
-    margin: 0 min(30px, 5%) 15x min(30px, 5%);
+    margin: 0 min(30px, 5%) 15px min(30px, 5%);
   }
 
   .NumberRow > div > p.Total {
@@ -328,9 +329,12 @@ body.Loaded .LoadingMask {
     padding: 8px 12px;
   }
 
-  .NumberRow,
+  .NumberRow {
+    margin: 12px 0 0 0;
+  }
+
   .PercentageRow {
-    margin: 8px 0;
+    margin: 0 0 10px 0;
   }
 
   .NumberRow > div > p.Total {
@@ -355,7 +359,7 @@ body.Loaded .LoadingMask {
   }
 
   .ArticleInfo {
-    margin: 0 15px 2px 15px;
+    margin: 0 15px 5px 15px;
   }
 
   .ArticleImg {
@@ -378,9 +382,12 @@ body.Loaded .LoadingMask {
     font-size: 1.35rem;
   }
 
-  .NumberRow,
+  .NumberRow {
+    margin: 10px 0 0 0;
+  }
+
   .PercentageRow {
-    margin: 8px 0;
+    margin: 0 0 8px 0;
   }
 
   .NumberRow > div > p.Total {
