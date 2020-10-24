@@ -1,59 +1,34 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function Header({ name, changeCountry }) {
+function Header({ name, resetCountry }) {
   return (
     <>
       <div className="Title">
-        <Link
-          to="./"
-          onClick={() => {
-            changeCountry("");
-          }}
-        >
+        <Link to="./" onClick={resetCountry}>
           <h1>
             COVID <span>|</span> Headline
           </h1>
         </Link>
+
         <nav>
-          <Link
-            to="./?country=US"
-            onClick={() => {
-              changeCountry("US");
-            }}
-          >
+          <Link to="./?country=US" onClick={resetCountry}>
             US
           </Link>
-          <Link
-            to="./?country=GB"
-            onClick={() => {
-              changeCountry("GB");
-            }}
-          >
+
+          <Link to="./?country=GB" onClick={resetCountry}>
             UK
           </Link>
-          <Link
-            to="./?country=CN"
-            onClick={() => {
-              changeCountry("CN");
-            }}
-          >
+
+          <Link to="./?country=CN" onClick={resetCountry}>
             China
           </Link>
-          <Link
-            to="./?country=RU"
-            onClick={() => {
-              changeCountry("RU");
-            }}
-          >
+
+          <Link to="./?country=RU" onClick={resetCountry}>
             Russia
           </Link>
-          <Link
-            to="./?country=JP"
-            onClick={() => {
-              changeCountry("JP");
-            }}
-          >
+
+          <Link to="./?country=JP" onClick={resetCountry}>
             Japan
           </Link>
         </nav>

@@ -259,6 +259,7 @@ body.Loaded .LoadingMask {
   padding: 4px;
   position: relative;
   transition: background 0.5s, opacity 0.5s 0.5s, visibility 0.5s 0.5s;
+  z-index: 32;
 }
 
 @keyframes spinning {
@@ -276,6 +277,7 @@ body.Loaded .LoadingMask {
 .LoadingMask {
   background: #f3f3f3;
   transition: background 0.5s, opacity 0.5s, visibility 0.5s;
+  z-index: 35;
 }
 
 .LoadingRing,

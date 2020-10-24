@@ -38,10 +38,9 @@ function Home() {
     return (result && result.languages && result.languages[0]) || undefined;
   }
 
-  function changeCountry(countryCode = "") {
+  function resetCountry() {
     document.body.classList.remove("Loaded");
     setTimeout(() => {
-      history.push(countryCode ? `./?country=${countryCode}` : "./");
       setCountry("");
     }, 1000);
   }
@@ -61,7 +60,7 @@ function Home() {
     setAllLoaded(false);
 
     if (!country) {
-      let countryCode = new URLSearchParams(history.location.search).get(
+      const countryCode = new URLSearchParams(history.location.search).get(
         "country"
       );
 
@@ -73,11 +72,9 @@ function Home() {
       axios
         .get(`https://ipapi.co/json`)
         .then((res) => {
-          console.log(res.data.country_code);
           setCountry(res.data.country_code);
         })
         .catch((err) => {
-          console.log(err);
           setCountry("US");
         });
     }
@@ -86,12 +83,12 @@ function Home() {
   function loadStats() {
     if (country && !lastLoadedDate) {
       clearTimeout(loadNewStatsTimeout);
+      console.log("loading stats", new Date());
 
       axios
         .get(`https://corona-api.com/countries/${country}`)
         .then((res) => {
           const data = res.data.data;
-          console.log(data);
           delete data.timeline;
           setStats(data);
 
@@ -112,8 +109,6 @@ function Home() {
           );
         })
         .catch((err) => {
-          console.warn(err);
-
           if (!stats) {
             document.documentElement.style.setProperty(
               "--light-accent-color",
@@ -131,7 +126,6 @@ function Home() {
           setLastLoadedDate(new Date());
           setLoadNewStatsTimeout(
             setTimeout(() => {
-              console.log("auto-refresh");
               setLastLoadedDate(null);
             }, loadNewStatsInterval)
           );
@@ -162,7 +156,6 @@ function Home() {
           }
         )
         .then((res) => {
-          console.log(res.data.articles);
           if (
             res.data.articles.length < pageSize ||
             res.data.totalResults <= articles.length + res.data.articles.length
@@ -172,7 +165,6 @@ function Home() {
           setArticles(articles.concat(res.data.articles));
         })
         .catch((err) => {
-          console.warn(err);
           setAllArticlesLoaded(true);
         })
         .finally(() => {
@@ -184,7 +176,7 @@ function Home() {
     }
   }
 
-  useEffect(() => {
+  function addListners() {
     function checkRefresh() {
       setLastLoadedDate((lastLoadedDate) =>
         lastLoadedDate && new Date() - lastLoadedDate >= loadNewStatsInterval
@@ -200,7 +192,7 @@ function Home() {
         document.documentElement.scrollTop;
 
       if (scrollBottom < 5) {
-        console.log("load!");
+        console.log("load more!");
         setShouldLoadMoreArticles(true);
       }
 
@@ -213,20 +205,28 @@ function Home() {
 
     document.addEventListener("visibilitychange", () => {
       if (!document.hidden) {
-        console.log("visibility not hidden!");
         checkRefresh();
       }
     });
 
     window.addEventListener("focus", () => {
-      console.log("window focus!");
       checkRefresh();
     });
-  }, []);
 
-  useEffect(getLocation, [country, history]);
-  useEffect(loadStats, [country, history, lastLoadedDate]);
-  useEffect(loadArticles, [country, history, shouldLoadMoreArticles]);
+    history.listen(() => {
+      if (history.action === "POP") {
+        document.body.classList.remove("Loaded");
+        setTimeout(() => {
+          setCountry("");
+        }, 1000);
+      }
+    });
+  }
+
+  useEffect(addListners, [history]);
+  useEffect(getLocation, [country]);
+  useEffect(loadStats, [country, lastLoadedDate]);
+  useEffect(loadArticles, [country, shouldLoadMoreArticles]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -290,7 +290,7 @@ function Home() {
                   stats.name
                 : ""
             }
-            changeCountry={changeCountry}
+            resetCountry={resetCountry}
           />
           <main>
             {stats ? (
