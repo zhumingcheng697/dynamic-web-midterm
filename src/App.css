@@ -55,7 +55,7 @@ div.Title {
   align-items: baseline;
   background-color: #fff8;
   backdrop-filter: blur(20px);
-  border-bottom: solid 1px #aaa;
+  border-bottom: solid 1px #0003;
   flex-wrap: wrap-reverse;
   display: flex;
   padding: calc(0px + var(--inset-top))
@@ -372,6 +372,16 @@ body.Loaded .LoadingMask {
   .ArticleImgContainer {
     display: none;
   }
+
+  .Loading h3 {
+    font-size: 1.08rem;
+  }
+
+  .LoadingRing,
+  .LoadingMask {
+    width: 46px;
+    height: 46px;
+  }
 }
 
 @media only screen and (max-width: 480px) {
@@ -402,6 +412,16 @@ body.Loaded .LoadingMask {
   .PercentageRow > div > p {
     font-size: 1.8rem;
   }
+
+  .Loading h3 {
+    font-size: 1rem;
+  }
+
+  .LoadingRing,
+  .LoadingMask {
+    width: 42px;
+    height: 42px;
+  }
 }
 
 @media (prefers-color-scheme: dark) {
@@ -426,7 +446,7 @@ body.Loaded .LoadingMask {
 
   div.Title {
     background-color: #0009;
-    border-bottom: solid 1px #555;
+    border-bottom: solid 1px #ffffff3c;
   }
 
   nav > a:hover {
