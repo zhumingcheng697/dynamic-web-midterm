@@ -179,6 +179,7 @@ nav > a:hover {
 
 .ArticleImg {
   display: none;
+  border-radius: 15px 15px 0 0;
   object-fit: cover;
   height: 100%;
   width: 100%;
