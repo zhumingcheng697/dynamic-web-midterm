@@ -221,6 +221,8 @@ function Home() {
         }, 1000);
       }
     });
+
+    window.history.scrollRestoration = "manual";
   }
 
   useEffect(addListners, [history]);
