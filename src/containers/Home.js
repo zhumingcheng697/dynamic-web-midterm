@@ -11,7 +11,7 @@ import Article from "../components/Article";
 function Home() {
   const pageSize = 20;
   const loadingDelay = 0;
-  const loadNewStatsInterval = 1800000; // 30 min
+  const loadNewStatsInterval = 900000; // 15 min
 
   const history = useHistory();
   const [country, setCountry] = useState(
@@ -20,7 +20,7 @@ function Home() {
   const [stats, setStats] = useState(null);
   const [statsLoaded, setStatsLoaded] = useState(false);
   const [lastLoadedDate, setLastLoadedDate] = useState(null);
-  const [loadNewStatsTimeout, setLoadNewStatsTimeout] = useState(null);
+  const [loadNewStatsTimeout, setLoadNewStatsTimeout] = useState([]);
 
   const [articles, setArticles] = useState([]);
   const [articlesLoaded, setArticlesLoaded] = useState(false);
@@ -49,7 +49,13 @@ function Home() {
     setStats(null);
     setStatsLoaded(false);
     setLastLoadedDate(null);
-    setLoadNewStatsTimeout(null);
+    setLoadNewStatsTimeout((ids) => {
+      for (const id of ids) {
+        clearTimeout(id);
+      }
+
+      return ids.slice(-3);
+    });
     setArticles([]);
     setArticlesLoaded(false);
     setShouldLoadMoreArticles(false);
@@ -82,54 +88,72 @@ function Home() {
 
   function loadStats() {
     if (country && !lastLoadedDate) {
-      clearTimeout(loadNewStatsTimeout);
+      for (const id of loadNewStatsTimeout) {
+        clearTimeout(id);
+      }
+
+      setLoadNewStatsTimeout((ids) => ids.slice(-3));
       console.log("loading stats", new Date());
 
-      axios
-        .get(`https://corona-api.com/countries/${country}`)
-        .then((res) => {
-          const data = res.data.data;
-          delete data.timeline;
-          setStats(data);
+      setTimeout(
+        () => {
+          axios
+            .get(`https://corona-api.com/countries/${country}`)
+            .then((res) => {
+              const data = res.data.data;
+              delete data.timeline;
+              setStats(data);
 
-          const logVal = Math.log2(
-            (data["latest_data"]["deaths"] / data["population"]) * 1000000 + 1
-          );
+              const logVal = Math.log2(
+                (data["latest_data"]["deaths"] / data["population"]) * 1000000 +
+                  1
+              );
 
-          const hue = Math.max(140 - 13.5 * logVal, 0);
+              const hue = Math.max(140 - 13.5 * logVal, 0);
 
-          document.documentElement.style.setProperty(
-            "--light-accent-color",
-            `hsl(${hue}, 76%, 60%)`
-          );
+              document.documentElement.style.setProperty(
+                "--light-accent-color",
+                `hsl(${hue}, 76%, 60%)`
+              );
 
-          document.documentElement.style.setProperty(
-            "--dark-accent-color",
-            `hsl(${hue}, 66%, 45%)`
-          );
-        })
-        .catch((err) => {
-          if (!stats) {
-            document.documentElement.style.setProperty(
-              "--light-accent-color",
-              "#eee"
-            );
+              document.documentElement.style.setProperty(
+                "--dark-accent-color",
+                `hsl(${hue}, 66%, 45%)`
+              );
+            })
+            .catch((err) => {
+              if (!stats) {
+                document.documentElement.style.setProperty(
+                  "--light-accent-color",
+                  "#eee"
+                );
 
-            document.documentElement.style.setProperty(
-              "--dark-accent-color",
-              "black"
-            );
-          }
-        })
-        .finally(() => {
-          setStatsLoaded(true);
-          setLastLoadedDate(new Date());
-          setLoadNewStatsTimeout(
-            setTimeout(() => {
-              setLastLoadedDate(null);
-            }, loadNewStatsInterval)
-          );
-        });
+                document.documentElement.style.setProperty(
+                  "--dark-accent-color",
+                  "black"
+                );
+              }
+            })
+            .finally(() => {
+              setStatsLoaded(true);
+              setLastLoadedDate(new Date());
+              for (const id of loadNewStatsTimeout) {
+                clearTimeout(id);
+              }
+
+              setLoadNewStatsTimeout((ids) => {
+                ids.push(
+                  setTimeout(() => {
+                    setLastLoadedDate(null);
+                  }, loadNewStatsInterval)
+                );
+
+                return ids.slice(-3);
+              });
+            });
+        },
+        statsLoaded ? loadingDelay : 0
+      );
     }
   }
 
@@ -178,11 +202,39 @@ function Home() {
 
   function addListners() {
     function checkRefresh() {
-      setLastLoadedDate((lastLoadedDate) =>
-        lastLoadedDate && new Date() - lastLoadedDate >= loadNewStatsInterval
-          ? null
-          : lastLoadedDate
-      );
+      setLastLoadedDate((lastLoadedDate) => {
+        if (
+          lastLoadedDate &&
+          new Date() - lastLoadedDate >= loadNewStatsInterval
+        ) {
+          setLoadNewStatsTimeout((ids) => {
+            for (const id of ids) {
+              clearTimeout(id);
+            }
+
+            return ids.slice(-3);
+          });
+          return null;
+        } else {
+          if (lastLoadedDate) {
+            setLoadNewStatsTimeout((ids) => {
+              for (const id of ids) {
+                clearTimeout(id);
+              }
+
+              ids.push(
+                setTimeout(() => {
+                  setLastLoadedDate(null);
+                }, loadNewStatsInterval - (new Date() - lastLoadedDate))
+              );
+
+              return ids.slice(-3);
+            });
+          }
+
+          return lastLoadedDate;
+        }
+      });
     }
 
     document.addEventListener("scroll", () => {
@@ -191,7 +243,7 @@ function Home() {
         document.documentElement.clientHeight -
         document.documentElement.scrollTop;
 
-      if (scrollBottom < 5) {
+      if (scrollBottom < 3) {
         console.log("load more!");
         setShouldLoadMoreArticles(true);
       }
