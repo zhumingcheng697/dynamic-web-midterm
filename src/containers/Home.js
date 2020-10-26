@@ -240,10 +240,10 @@ function Home() {
     document.addEventListener("scroll", () => {
       const scrollBottom =
         document.documentElement.scrollHeight -
-        document.documentElement.clientHeight -
+        window.innerHeight -
         document.documentElement.scrollTop;
 
-      if (scrollBottom < 3) {
+      if (scrollBottom < 1) {
         console.log("load more!");
         setShouldLoadMoreArticles(true);
       }
