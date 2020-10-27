@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/dynamic-web-midterm/static/css/main.87cfb264.chunk.css",
-    "main.js": "/dynamic-web-midterm/static/js/main.50dc1329.chunk.js",
-    "main.js.map": "/dynamic-web-midterm/static/js/main.50dc1329.chunk.js.map",
+    "main.js": "/dynamic-web-midterm/static/js/main.bf4a82df.chunk.js",
+    "main.js.map": "/dynamic-web-midterm/static/js/main.bf4a82df.chunk.js.map",
     "runtime-main.js": "/dynamic-web-midterm/static/js/runtime-main.0790086b.js",
     "runtime-main.js.map": "/dynamic-web-midterm/static/js/runtime-main.0790086b.js.map",
     "static/js/2.bbf4a560.chunk.js": "/dynamic-web-midterm/static/js/2.bbf4a560.chunk.js",
     "static/js/2.bbf4a560.chunk.js.map": "/dynamic-web-midterm/static/js/2.bbf4a560.chunk.js.map",
     "index.html": "/dynamic-web-midterm/index.html",
-    "precache-manifest.30a42497ff8fb1884e468650919dff88.js": "/dynamic-web-midterm/precache-manifest.30a42497ff8fb1884e468650919dff88.js",
+    "precache-manifest.c97567a28b32d754fd85eccb483b5f2d.js": "/dynamic-web-midterm/precache-manifest.c97567a28b32d754fd85eccb483b5f2d.js",
     "service-worker.js": "/dynamic-web-midterm/service-worker.js",
     "static/css/main.87cfb264.chunk.css.map": "/dynamic-web-midterm/static/css/main.87cfb264.chunk.css.map",
     "static/js/2.bbf4a560.chunk.js.LICENSE.txt": "/dynamic-web-midterm/static/js/2.bbf4a560.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.0790086b.js",
     "static/js/2.bbf4a560.chunk.js",
     "static/css/main.87cfb264.chunk.css",
-    "static/js/main.50dc1329.chunk.js"
+    "static/js/main.bf4a82df.chunk.js"
   ]
 }
