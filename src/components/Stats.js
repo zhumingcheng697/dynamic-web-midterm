@@ -1,7 +1,7 @@
 import React from "react";
 
 function Stats({ data, locale }) {
-  if (data) {
+  try {
     const fatalityRate =
       data["latest_data"]["deaths"] / data["latest_data"]["confirmed"];
 
@@ -85,7 +85,7 @@ function Stats({ data, locale }) {
         </p>
       </section>
     );
-  } else {
+  } catch (e) {
     return null;
   }
 }

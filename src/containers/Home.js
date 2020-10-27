@@ -93,7 +93,6 @@ function Home() {
       }
 
       setLoadNewStatsTimeout((ids) => ids.slice(-3));
-      console.log("loading stats", new Date());
 
       setTimeout(
         () => {
@@ -168,7 +167,6 @@ function Home() {
       setShouldLoadMoreArticles(false);
 
       const pageLoading = Math.ceil(articles.length / pageSize) + 1;
-      console.log(pageLoading);
 
       axios
         .get(
@@ -244,7 +242,6 @@ function Home() {
         document.documentElement.scrollTop;
 
       if (scrollBottom < 1) {
-        console.log("load more!");
         setShouldLoadMoreArticles(true);
       }
 
@@ -349,11 +346,7 @@ function Home() {
           <main>
             {stats ? (
               <>
-                <Stats
-                  data={stats}
-                  // locale={`${CountryLocaleMap.getLocaleByAlpha2(country)}`}
-                  locale={undefined}
-                />
+                <Stats data={stats} locale={undefined} />
                 <section className="Articles">
                   {articles.map((article, i) => {
                     return <Article key={i} data={article} locale={locale()} />;

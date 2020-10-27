@@ -1,7 +1,7 @@
 import React from "react";
 
 function Article({ data, locale }) {
-  if (data) {
+  try {
     return (
       <a href={data["url"]} className="Article">
         <div className={`ArticleInfo${data["urlToImage"] ? "" : " no-image"}`}>
@@ -47,7 +47,7 @@ function Article({ data, locale }) {
         ) : null}
       </a>
     );
-  } else {
+  } catch (e) {
     return null;
   }
 }

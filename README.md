@@ -1,68 +1,37 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# [COVID | Headline](https://zhumingcheng697.github.io/dynamic-web-midterm)
 
-## Available Scripts
+**McCoy Zhu’s Midterm Project for Fall 2020 Dynamic Web App (DM-UY 3193)**
 
-In the project directory, you can run:
+## Sources of Data
 
-### `npm start`
+This website uses three REST APIs to [estimate your location](https://ipapi.co) using your IP address, [load latest COVID-19 statistics](https://about-corona.net) in a specific country or area, and [load latest top headlines](https://newsapi.org) in the same country or area. Another node module is used to work with [ISO country codes, country names, languages, and locales](https://www.npmjs.com/package/country-locale-map).
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Displaying Sources of Data
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+The website either extract the `country` parameter from the URL query, or use the first REST API to get an estimated user’s location, then load the COVID-19 statistics and top headlines in that country or area using the second and third REST APIs and display the data side by side, in an effort to examine if there is any correlation between a country or area’s COVID severity and its top headlines.
 
-### `npm test`
+> Due to API constraints, COVID statistics may be inaccurate and headlines may be unavailable for certain countries and areas. For the [deployed GitHub Pages site](https://zhumingcheng697.github.io/dynamic-web-midterm), it is known that the heaadline API does not work well on macOS Chrome and macOS Firefox but seems to work fine on macOS Safari, iOS Safari, and iOS Chrome. Other browsers and envrionments have not been fully tested yet.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Interactive UI
 
-### `npm run build`
+The five links in the `<nav>` bar as well as the `<h1>` title of tha website are all implemented using React’s `<Link>` element and can let the user choose which country’s or area’s information to display, or use the user’s estimated location, without a full site refresh. Browser back and forward functionalities should also be fully supported.
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Data-dependent UI
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+The website’s accent color, which is used on the verticle bar in the website’s title, the name of the country or area whose information is being displayed, and labels like “Loading More Headlines…” and “All Top Headlines Loaded”, is dependent on the death per million population of COVID in that country or area. The less death per million population a location has, the greener the accent color will be. I used this piece of information because I believe it is more representative of a country’s or area’s severity of COVID than fatality rate or case number.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+> Logarithmic operations are involved in calculating the accent color, so the correlation between the hue of the color and death per million population is actually exponential, not linear.
 
-### `npm run eject`
+## Style
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Reflects my usual clean, minimalistic taste. Mobile responsive. Supports `prefers-color-scheme` and `safe-area-inset`.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Additional Features
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- Automatically hides images that failed to load and readjusts layout.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- Falls back the location to the user’s estimated location or United States if no COVID data is found for the current country or area.
 
-## Learn More
+- Automatically loads more headlines, if there is any, when the user scrolls to the bottom of the page.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+- Automatcially reloads COVID data every 15 minutes without a full site refresh.
