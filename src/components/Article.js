@@ -6,18 +6,22 @@ function Article({ data, locale }) {
       <a href={data["url"]} className="Article">
         <div className={`ArticleInfo${data["urlToImage"] ? "" : " no-image"}`}>
           <h4>{data["title"]}</h4>
+
           {data["description"] && !data["description"].includes("�") ? (
             <p>{data["description"]}</p>
           ) : null}
-          <p className="ArticleDate">
-            {new Date(data["publishedAt"]).toLocaleDateString(locale, {
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-              hour: "numeric",
-              minute: "numeric",
-            })}
-          </p>
+
+          {data["publishedAt"] ? (
+            <p className="ArticleDate">
+              {new Date(data["publishedAt"]).toLocaleDateString(locale, {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+                hour: "numeric",
+                minute: "numeric",
+              })}
+            </p>
+          ) : null}
         </div>
 
         {data["urlToImage"] ? (
@@ -39,6 +43,7 @@ function Article({ data, locale }) {
                 e.target.style.display = "none";
               }}
             />
+
             <div
               className="ArticleImgContainer"
               style={{ backgroundImage: `url(${data["urlToImage"]})` }}

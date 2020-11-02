@@ -18,9 +18,11 @@ function Stats({ data, locale }) {
             <p className="Total">
               {data["latest_data"]["confirmed"].toLocaleString(locale)} Total
             </p>
-            {data["today"]["confirmed"] || data["today"]["deaths"] ? (
+            {data["today"] &&
+            (data["today"]["confirmed"] || data["today"]["deaths"]) ? (
               <p className="Today">
-                +{data["today"]["confirmed"].toLocaleString(locale)} Today
+                +{(data["today"]["confirmed"] || 0).toLocaleString(locale)}{" "}
+                Today
               </p>
             ) : null}
           </div>
@@ -30,9 +32,10 @@ function Stats({ data, locale }) {
             <p className="Total">
               {data["latest_data"]["deaths"].toLocaleString(locale)} Total
             </p>
-            {data["today"]["confirmed"] || data["today"]["deaths"] ? (
+            {data["today"] &&
+            (data["today"]["confirmed"] || data["today"]["deaths"]) ? (
               <p className="Today">
-                +{data["today"]["deaths"].toLocaleString(locale)} Today
+                +{(data["today"]["deaths"] || 0).toLocaleString(locale)} Today
               </p>
             ) : null}
           </div>
@@ -70,19 +73,21 @@ function Stats({ data, locale }) {
           </div>
         </div>
 
-        <p className="UpdatedAt">
-          Last updated at{" "}
-          <span>
-            {new Date(data["updated_at"]).toLocaleString(locale, {
-              year: "numeric",
-              month: "numeric",
-              day: "numeric",
-              hour: "numeric",
-              minute: "numeric",
-              timeZoneName: "short",
-            })}
-          </span>
-        </p>
+        {data["updated_at"] ? (
+          <p className="UpdatedAt">
+            Last updated at{" "}
+            <span>
+              {new Date(data["updated_at"]).toLocaleString(locale, {
+                year: "numeric",
+                month: "numeric",
+                day: "numeric",
+                hour: "numeric",
+                minute: "numeric",
+                timeZoneName: "short",
+              })}
+            </span>
+          </p>
+        ) : null}
       </section>
     );
   } catch (e) {
