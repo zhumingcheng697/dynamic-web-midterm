@@ -10,7 +10,7 @@ This website uses three REST APIs to [estimate your location](https://ipapi.co) 
 
 The website either extract the `country` parameter from the URL query, or use the first REST API to get an estimated user’s location, then load the COVID-19 statistics and top headlines in that country or area using the second and third REST APIs and display the data side by side, in an effort to examine if there is any correlation between a country or area’s COVID severity and its top headlines.
 
-> Due to API constraints, COVID statistics may be inaccurate and headlines may be unavailable for certain countries and areas. For the [deployed GitHub Pages site](https://zhumingcheng697.github.io/dynamic-web-midterm), it is known that the heaadline API does not work _at all_ ~~on macOS Chrome and macOS Firefox but seems to work fine on macOS Safari, iOS Safari, and iOS Chrome. Other browsers and envrionments have not been fully tested yet~~.
+> Due to API constraints, COVID statistics may be inaccurate and headlines may be unavailable for certain countries and areas. For the [deployed GitHub Pages site](https://zhumingcheng697.github.io/dynamic-web-midterm), it is known that the headline API does not work _at all_ ~~on macOS Chrome and macOS Firefox but seems to work fine on macOS Safari, iOS Safari, and iOS Chrome. Other browsers and envrionments have not been fully tested yet~~.
 
 ## Interactive UI
 
