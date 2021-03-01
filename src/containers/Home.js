@@ -170,7 +170,7 @@ function Home() {
 
       axios
         .get(
-          `https://cors-anywhere.herokuapp.com/https://newsapi.org/v2/top-headlines?country=${country}&pageSize=${pageSize}&page=${pageLoading}&apiKey=${process.env.REACT_APP_NEWS_API_KEY}`,
+          `https://newsapi.org/v2/top-headlines?country=${country}&pageSize=${pageSize}&page=${pageLoading}&apiKey=${process.env.REACT_APP_NEWS_API_KEY}`,
           {
             headers: {
               "Content-Type": "application/x-www-form-urlencoded",
