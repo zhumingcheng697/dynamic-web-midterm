@@ -10,7 +10,9 @@ This website uses three REST APIs to [estimate your location](https://ipapi.co) 
 
 The website either extract the `country` parameter from the URL query, or use the first REST API to get an estimated user’s location, then load the COVID-19 statistics and top headlines in that country or area using the second and third REST APIs and display the data side by side, in an effort to examine if there is any correlation between a country or area’s COVID severity and its top headlines.
 
-> Due to API constraints, COVID statistics may be inaccurate and headlines may be unavailable for certain countries and areas. For the [deployed GitHub Pages site](https://zhumingcheng697.github.io/dynamic-web-midterm), it is known that the headline API does not work _at all_ ~~on macOS Chrome and macOS Firefox but seems to work fine on macOS Safari, iOS Safari, and iOS Chrome. Other browsers and envrionments have not been fully tested yet~~.
+> Due to API constraints, COVID statistics may be inaccurate and headlines may be unavailable for certain countries and areas.
+
+> The [deployed GitHub Pages site](https://zhumingcheng697.github.io/dynamic-web-midterm) was unable to access the headline API before due to API plan constraints, but in 2022 a simple back end was deployed to circumvent this restriction.
 
 ## Interactive UI
 
@@ -28,10 +30,10 @@ Reflects my usual clean, minimalistic taste. Mobile responsive. Supports `prefer
 
 ## Additional Features
 
--   Automatically hides images that failed to load and readjusts layout.
+- Automatically hides images that failed to load and readjusts layout.
 
--   Falls back the location to the user’s estimated location or United States if no COVID data is found for the current country or area.
+- Falls back the location to the user’s estimated location or United States if no COVID data is found for the current country or area.
 
--   Automatically loads more headlines, if there is any, when the user scrolls to the bottom of the page.
+- Automatically loads more headlines, if there is any, when the user scrolls to the bottom of the page.
 
--   Automatcially reloads COVID data every 15 minutes without a full site refresh.
+- Automatcially reloads COVID data every 15 minutes without a full site refresh.
