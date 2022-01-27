@@ -28,10 +28,10 @@ Reflects my usual clean, minimalistic taste. Mobile responsive. Supports `prefer
 
 ## Additional Features
 
-- Automatically hides images that failed to load and readjusts layout.
+-   Automatically hides images that failed to load and readjusts layout.
 
-- Falls back the location to the user’s estimated location or United States if no COVID data is found for the current country or area.
+-   Falls back the location to the user’s estimated location or United States if no COVID data is found for the current country or area.
 
-- Automatically loads more headlines, if there is any, when the user scrolls to the bottom of the page.
+-   Automatically loads more headlines, if there is any, when the user scrolls to the bottom of the page.
 
-- Automatcially reloads COVID data every 15 minutes without a full site refresh.
+-   Automatcially reloads COVID data every 15 minutes without a full site refresh.
